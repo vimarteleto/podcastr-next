@@ -11,7 +11,6 @@ export default function Header() {
         locale: ptBR
     })
 
-
     return (
         <header className={styles.headerContainer}> 
             <img src="/logo.svg" alt="Podcastr"/>

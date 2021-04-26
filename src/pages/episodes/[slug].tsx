@@ -3,7 +3,8 @@ import ptBR from 'date-fns/locale/pt-BR'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useContext } from 'react'
+import { PlayerContext, usePlayer } from '../../contexts/PlayerContext'
 import { api } from '../../services/api'
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString'
 import styles from './episode.module.scss'
@@ -14,7 +15,7 @@ type Episode = {
     thumbnail: string,
     description: string,
     members: string,
-    duration: string,
+    duration: number,
     durationAsString: string,
     url: string,
     publishedAt: string,
@@ -25,6 +26,8 @@ type EpisodeProps = {
 }
 
 export default function Episode({ episode }: EpisodeProps) {
+
+    const {play } = usePlayer()
 
     return (
         <div className={styles.episode}>
@@ -41,7 +44,7 @@ export default function Episode({ episode }: EpisodeProps) {
                     objectFit='cover'
                 />
 
-                <button type="button">
+                <button type="button" onClick={() => play(episode)}>
                     <img src="/play.svg" alt="Tocar episódio"/>
                 </button>                   
 
